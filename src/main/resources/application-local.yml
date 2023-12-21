@@ -1,0 +1,12 @@
+spring:
+  config:
+    import:
+      - classpath:properties/application-server.yml
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: 7287282
+  jpa:
+    hibernate:
+      ddl-auto: update
+    open-in-view: false

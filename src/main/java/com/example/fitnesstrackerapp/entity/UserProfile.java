@@ -21,7 +21,7 @@ public class UserProfile {
     private Double weight;
     private Gender gender;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "fitness_user_id")
     private User user;
 }
