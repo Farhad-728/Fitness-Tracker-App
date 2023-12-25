@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Timer;
 
 
 @Data
@@ -21,8 +22,9 @@ public class ProgressTracker {
     private Long id;
     private Double weight;
     private Integer activeDays;
-    private LocalDate date;
 
+    //    private Timer totalTime;
+//private List<Exercise> exerciseList;
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_profile_id")
     private UserProfile userProfile;

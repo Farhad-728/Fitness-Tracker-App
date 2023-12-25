@@ -1,7 +1,6 @@
 package com.example.fitnesstrackerapp.controller;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
-import com.example.fitnesstrackerapp.entity.User;
 import com.example.fitnesstrackerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,12 +24,22 @@ public class UserController {
 
     @GetMapping("/{username}")
     private ResponseEntity<UserDTO> getUserByUsername(@PathVariable String username) {
-        UserDTO users = userService.getUserByUsername(username);
-        return new ResponseEntity<>(users, HttpStatus.OK);
+        UserDTO user = userService.getUserByUsername(username);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping(value = "/save")
-    public void createUser(@RequestBody UserDTO userDTO) {
-        userService.createUser(userDTO);
+    private void createUser(@RequestBody UserDTO userDTO) { // return response entity
+        userService.saveUser(userDTO);
+    }
+
+    @PutMapping("/update")
+    private void updateUser(@RequestBody UserDTO userDTO) {
+        userService.updateUser(userDTO);
+    }
+
+    @DeleteMapping("/delete/{userId}")
+    private void deleteUser(@PathVariable Long userId) {
+        userService.deleteUser(userId);
     }
 }

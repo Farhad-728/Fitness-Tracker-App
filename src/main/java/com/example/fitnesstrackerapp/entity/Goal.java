@@ -25,6 +25,6 @@ public class Goal {
     private boolean archived;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_profile_id")
-    private UserProfile userProfile;
+    @JoinColumn(name = "user_id")
+    private User user;
 }

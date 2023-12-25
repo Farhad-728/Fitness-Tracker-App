@@ -1,4 +1,5 @@
 package com.example.fitnesstrackerapp.service.impl;
+
 import com.example.fitnesstrackerapp.dto.UserDTO;
 import com.example.fitnesstrackerapp.entity.User;
 import com.example.fitnesstrackerapp.entity.UserProfile;
@@ -9,7 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import static java.util.Objects.isNull;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -51,23 +53,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void createUser(UserDTO userDTO) {
-        User user = User.builder()
+    public void saveUser(UserDTO userDTO) {
+        User newUser = buildUserObject(userDTO);
+        createProfile(userDTO, newUser);
+    }
+
+    private User buildUserObject(UserDTO userDTO) {
+        return User.builder()
                 .username(userDTO.getUsername())
                 .password(userDTO.getPassword())
                 .email(userDTO.getEmail())
                 .build();
-        User newUser = userRepository.save(user);
+    }
 
+    private void createProfile(UserDTO userDTO, User user) {
         UserProfile userProfile = UserProfile.builder()
                 .name(userDTO.getName())
                 .age(userDTO.getAge())
                 .weight(userDTO.getWeight())
                 .gender(userDTO.getGender())
-                .user(newUser)
+                .user(user)
                 .build();
         userProfileRepository.save(userProfile);
     }
+
     @Override
     public void updateUser(UserDTO userDTO) {
         UserProfile profile =
@@ -85,22 +94,38 @@ public class UserServiceImpl implements UserService {
             userRepository.save(updateUser);
         }
     }
-    private UserDTO buildUserProfile(UserDTO userDTO, UserProfile profile) {
-        User updateUser = User.builder()
-                .id(profile.getUser().getId())
-                .username(userDTO.getUsername())
-                .email(userDTO.getEmail())
-                .password(userDTO.getPassword())
-                .build();
-        userRepository.save(updateUser);
 
-        UserProfile userProfile = UserProfile.builder()
+    //SINGLE RESPONSIBILITY
+    private UserProfile buildUserProfile(UserDTO userDTO, UserProfile profile) {
+        User updateUser = buildUpdatedUser(userDTO, profile.getUser().getId());
+
+        UserProfile updatedProfile = UserProfile.builder()
                 .id(profile.getId())
                 .name(userDTO.getName())
                 .gender(userDTO.getGender())
                 .age(userDTO.getAge())
                 .weight(userDTO.getWeight())
+                .user(updateUser)
                 .build();
         userProfileRepository.save(userProfile);
+    }
+
+    private User buildUpdatedUser(UserDTO userDTO, Long userId) {
+        return User.builder()
+                .id(userId)
+                .username(userDTO.getUsername())
+                .email(userDTO.getEmail())
+                .password(userDTO.getPassword())
+                .build();
+
+    }
+
+    @Override
+    public void deleteUser(Long userId) {
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        profile.ifPresentOrElse(
+                userProfileRepository::delete,
+                () -> new RuntimeException("Profile not found")
+        );
     }
 }

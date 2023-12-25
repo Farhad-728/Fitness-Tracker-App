@@ -1,0 +1,134 @@
+{
+	"info": {
+		"_postman_id": "8ffc56fc-3ac4-4e5f-a648-71e42840261c",
+		"name": "Fitness-Tacker-App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "28959568"
+	},
+	"item": [
+		{
+			"name": "getUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUserByUsername",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/users/{username}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"users",
+						"{username}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/users/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"users",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/users/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"users",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/users//delete/{userId}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"users",
+						"",
+						"delete",
+						"{userId}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
