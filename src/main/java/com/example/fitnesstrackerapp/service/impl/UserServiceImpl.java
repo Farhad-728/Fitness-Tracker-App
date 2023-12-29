@@ -28,9 +28,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO getUserByUsername(String username) {
-        UserProfile profile = userProfileRepository.getUserProfileByUsername(username);
-
-        return buildUserDto(profile);
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUsername(username);
+        return profile.map(this::buildUserDto)
+                .orElseThrow(() -> new RuntimeException("profile not found")); //replace with custom exception
     }
 
     private List<UserDTO> mapUserEntityToDto(List<UserProfile> userProfiles) {
@@ -79,20 +79,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUser(UserDTO userDTO) {
-        UserProfile profile =
-                userProfileRepository.getUserProfileByUsername(userDTO.getUsername());
-        //update
-        if (!isNull(profile)) {
-            buildUserProfile(userDTO, profile);
-        } else {
-            User updateUser = User
-                    .builder()
-                    .username(userDTO.getUsername())
-                    .email(userDTO.getEmail())
-                    .password(userDTO.getPassword())
-                    .build();
-            userRepository.save(updateUser);
-        }
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUsername(userDTO.getUsername());
+        profile.ifPresentOrElse(
+                p -> {
+                    UserProfile updatedProfile = buildUserProfile(userDTO, p);
+                    userProfileRepository.save(updatedProfile);
+                },
+                () -> new RuntimeException("Profile not found")
+        );
     }
 
     //SINGLE RESPONSIBILITY
@@ -107,7 +101,7 @@ public class UserServiceImpl implements UserService {
                 .weight(userDTO.getWeight())
                 .user(updateUser)
                 .build();
-        userProfileRepository.save(userProfile);
+       return updatedProfile;
     }
 
     private User buildUpdatedUser(UserDTO userDTO, Long userId) {

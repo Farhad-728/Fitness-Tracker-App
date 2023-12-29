@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -74,6 +75,15 @@ public class GoalServiceImpl implements GoalService {
                 .stream()
                 .map(this::buildGoalDTO)
                 .collect(Collectors.toList());
+    }
+
+    private GoalDTO buildGoalDTO(Goal g) {
+        return  GoalDTO.builder()
+                .id(g.getId())
+                .name(g.getName())
+                .goalType(g.getGoalType())
+                .target(g.getTarget())
+                .build();
     }
 
     @Override
