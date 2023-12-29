@@ -1,10 +1,15 @@
 package com.example.fitnesstrackerapp.service;
 
 import com.example.fitnesstrackerapp.dto.GoalDTO;
-import com.example.fitnesstrackerapp.dto.UserDTO;
 
 import java.util.List;
 
 public interface GoalService {
-    List<GoalDTO> getGoals();
+    void saveGoal(GoalDTO goalDTO, Long userId);
+
+    void updateGoal(GoalDTO goalDTO);
+
+     List<GoalDTO> getAllGoals();
+
+     void deleteGoalByUserId(Long id);
 }

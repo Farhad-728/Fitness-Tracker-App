@@ -48,7 +48,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "createUser",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -78,7 +78,7 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "updateUser",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -108,12 +108,12 @@
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "deleteUser",
 			"request": {
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/users//delete/{userId}",
+					"raw": "localhost:8080/demo-ms/v1/users/delete/10",
 					"host": [
 						"localhost"
 					],
@@ -122,9 +122,107 @@
 						"demo-ms",
 						"v1",
 						"users",
-						"",
 						"delete",
-						"{userId}"
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveGoal",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"lose_weight\",\r\n        \"target\": \"80 kg\",\r\n        \"goalType\": \"WEIGHTLOSS\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/goals/save/10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"goals",
+						"save",
+						"10"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateGoal",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"lose_weight\",\r\n        \"target\": \"70 kg\",\r\n        \"goalType\": \"WEIGHTLOSS\",\r\n        \"id\": 1\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/goals/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"goals",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllGoals",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/goals",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"goals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteGoal",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/goals/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"goals",
+						"delete",
+						"1"
 					]
 				}
 			},

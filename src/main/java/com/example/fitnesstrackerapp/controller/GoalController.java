@@ -6,9 +6,7 @@ import com.example.fitnesstrackerapp.service.GoalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +17,23 @@ public class GoalController {
 
     private final GoalService goalService;
 
+    @PostMapping(value = "/save/{userId}")
+    private ResponseEntity createGoal(@RequestBody GoalDTO goalDTO, @PathVariable Long userId) {
+        goalService.saveGoal(goalDTO, userId);
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @PutMapping("/update")
+    private void updateGoal(@RequestBody GoalDTO goalDTO) {
+        goalService.updateGoal(goalDTO);
+    }
     @GetMapping
-    private ResponseEntity<List<GoalDTO>> getGoals() {
-        List<GoalDTO> goals = goalService.getGoals();
-        return new ResponseEntity<>(goals, HttpStatus.OK);
+    private List<GoalDTO> getGoals() {
+        return goalService.getAllGoals();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    private void deleteGoalByUserId(@PathVariable Long id) {
+        goalService.deleteGoalByUserId(id);
     }
 }

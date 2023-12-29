@@ -1,15 +1,11 @@
 package com.example.fitnesstrackerapp.dto;
-
-import com.example.fitnesstrackerapp.enums.Gender;
 import com.example.fitnesstrackerapp.enums.GoalType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,5 +15,4 @@ public class GoalDTO {
     private GoalType goalType;
     private LocalDate deadline;
     private boolean archived;
-
 }
