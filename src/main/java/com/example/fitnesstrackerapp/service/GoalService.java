@@ -11,5 +11,5 @@ public interface GoalService {
 
      List<GoalDTO> getAllGoals();
 
-     void deleteGoalByUserId(Long id);
+     void deleteGoalById(Long id);
 }

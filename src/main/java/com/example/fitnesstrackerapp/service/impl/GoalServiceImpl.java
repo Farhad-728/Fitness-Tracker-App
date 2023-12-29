@@ -27,7 +27,7 @@ public class GoalServiceImpl implements GoalService {
     @Override
     public void saveGoal(GoalDTO goalDTO, Long userId) {
         Optional<User> user = userRepository.findById(userId);
-        if(user.isPresent()) {
+        if (user.isPresent()) {
             Goal newGoal = buildGoalObject(goalDTO, user.get());
             goalRepository.save(newGoal);
         } else {
@@ -38,7 +38,7 @@ public class GoalServiceImpl implements GoalService {
     @Override
     public void updateGoal(GoalDTO goalDTO) {
         Optional<Goal> goal = goalRepository.findById(goalDTO.getId());
-        if(goal.isPresent()) {
+        if (goal.isPresent()) {
             Goal updatedGoal = updateGoalObj(goalDTO, goal.get());
             goalRepository.save(updatedGoal);
         } else {
@@ -68,21 +68,22 @@ public class GoalServiceImpl implements GoalService {
                 .user(oldGoal.getUser())
                 .build();
     }
-    public  List<GoalDTO> getAllGoals() {
-        List<Goal> goalList=goalRepository.getAll();
-        List<GoalDTO> goalDTOList=new ArrayList<>();
-        for(Goal g: goalList){
-            goalDTOList.add(GoalDTO.builder()
-                            .id(g.getId())
-                            .name(g.getName())
-                    .build());
-        }
-        return goalDTOList;
+
+    public List<GoalDTO> getAllGoals() {
+        return goalRepository.getAll()
+                .stream()
+                .map(this::buildGoalDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    @Transactional
-    public void deleteGoalByUserId(Long id) {
-        goalRepository.deleteGoalById(id);
+    public void deleteGoalById(Long id) {
+        Optional<Goal> goal = goalRepository.findById(id);
+        if(goal.isPresent()) {
+            goalRepository.delete(goal.get());
+        } else {
+            throw new GoalNotFoundException("Goal not found to delete");
+        }
+
     }
 }
