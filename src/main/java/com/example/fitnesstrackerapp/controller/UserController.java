@@ -2,6 +2,7 @@ package com.example.fitnesstrackerapp.controller;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
 import com.example.fitnesstrackerapp.service.UserService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/save")
-    private void createUser(@RequestBody UserDTO userDTO) { // return response entity
+    private void createUser(@Valid @RequestBody UserDTO userDTO) { // return response entity
         userService.saveUser(userDTO);
     }
 

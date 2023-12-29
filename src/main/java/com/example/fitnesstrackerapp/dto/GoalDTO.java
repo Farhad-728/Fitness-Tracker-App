@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GoalDTO {
+    private Long id;
     private String name;
     private String target;
     private GoalType goalType;

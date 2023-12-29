@@ -1,7 +1,6 @@
 package com.example.fitnesstrackerapp.controller;
 
 import com.example.fitnesstrackerapp.dto.GoalDTO;
-import com.example.fitnesstrackerapp.dto.UserDTO;
 import com.example.fitnesstrackerapp.service.GoalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,7 +32,7 @@ public class GoalController {
     }
 
     @DeleteMapping("/delete/{id}")
-    private void deleteGoalByUserId(@PathVariable Long id) {
-        goalService.deleteGoalByUserId(id);
+    private void deleteGoalById(@PathVariable Long id) {
+        goalService.deleteGoalById(id);
     }
 }
