@@ -2,6 +2,7 @@ package com.example.fitnesstrackerapp.controller;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
 import com.example.fitnesstrackerapp.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -12,7 +13,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/users")
+@RequestMapping("/v2/users")
+@Tag(name = "users")
 public class UserController {
 
     private final UserService userService;

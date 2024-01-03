@@ -8,6 +8,7 @@ import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -101,7 +102,7 @@ public class UserServiceImpl implements UserService {
                 .weight(userDTO.getWeight())
                 .user(updateUser)
                 .build();
-       return updatedProfile;
+        return updatedProfile;
     }
 
     private User buildUpdatedUser(UserDTO userDTO, Long userId) {

@@ -2,6 +2,7 @@ package com.example.fitnesstrackerapp.controller;
 
 import com.example.fitnesstrackerapp.dto.GoalDTO;
 import com.example.fitnesstrackerapp.service.GoalService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +12,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/goals")
+@RequestMapping("/v1/goals")
+@Tag(name = "goals")
 public class GoalController {
 
     private final GoalService goalService;
