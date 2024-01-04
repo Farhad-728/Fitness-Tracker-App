@@ -22,11 +22,11 @@ public class Workout {
     private Double caloriesBurned;
     private WorkType type;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_profile_id")
-    private UserProfile userProfile;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id")
+    private User user;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "workout_exercises",
     joinColumns = @JoinColumn(name = "workout_id"),
     inverseJoinColumns = @JoinColumn(name = "exercise_id"))

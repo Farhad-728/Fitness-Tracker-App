@@ -21,7 +21,7 @@ public class Exercise {
     private Long id;
     @Column(name = "names")
     private String name;
-    private Double weight;
+    private double duration;
 
     @ManyToMany(mappedBy = "exercises")
     private Set<Workout> workouts;
