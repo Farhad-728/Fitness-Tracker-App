@@ -288,6 +288,27 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "allExercises",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/exercises/find",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"exercises",
+						"find"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
