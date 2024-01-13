@@ -1,5 +1,5 @@
 package com.example.fitnesstrackerapp.entity;
-import com.example.fitnesstrackerapp.enums.WorkType;
+import com.example.fitnesstrackerapp.enums.ExerciseType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,8 +19,7 @@ public class Workout {
     private Long id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private Double caloriesBurned;
-    private WorkType type;
+    private double caloriesBurned;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")

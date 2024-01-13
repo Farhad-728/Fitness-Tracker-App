@@ -6,6 +6,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/v1/workouts")
@@ -15,9 +17,19 @@ public class WorkoutController {
     private final WorkoutService workoutService;
 
     @PostMapping("/save")
-    public void createWorkout(@RequestBody WorkoutDTO workoutDTO,
-                              @RequestParam Long userId,
-                              @RequestParam Long exerciseId) {
-        workoutService.save(workoutDTO, userId, exerciseId);
+    public void create(@RequestParam Long userId,
+                       @RequestParam Long exerciseId) {
+        workoutService.save(userId, exerciseId);
+    }
+
+    @GetMapping("/find")
+    public List<WorkoutDTO> findAll() {
+        return workoutService.findAll();
+    }
+
+    @PutMapping("/update")
+    public void update(@RequestParam Long workoutId,
+                       @RequestParam Long exerciseId) {
+        workoutService.update(workoutId, exerciseId);
     }
 }

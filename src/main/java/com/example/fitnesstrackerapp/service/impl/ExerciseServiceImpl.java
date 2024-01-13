@@ -1,7 +1,6 @@
 package com.example.fitnesstrackerapp.service.impl;
 
 import com.example.fitnesstrackerapp.dto.ExerciseDTO;
-import com.example.fitnesstrackerapp.dto.GoalDTO;
 import com.example.fitnesstrackerapp.entity.Exercise;
 import com.example.fitnesstrackerapp.repository.ExerciseRepository;
 import com.example.fitnesstrackerapp.service.ExerciseService;
@@ -22,19 +21,21 @@ public class ExerciseServiceImpl implements ExerciseService {
         Exercise exercise = Exercise.builder()
                 .name(exerciseDTO.getName())
                 .duration(exerciseDTO.getDuration())
+                .type(exerciseDTO.getType())
                 .build();
 
         return exerciseRepository.save(exercise);
     }
-    public List<ExerciseDTO> findAllExercises() {
-        return exerciseRepository.findAll()
-                .stream()
-                .map(this::buildExerciseDTO)
-                .collect(Collectors.toList());
+
+    public Page<ExerciseDTO> findAll(PageRequest pageRequest) {
+        return exerciseRepository.findAll(pageRequest)
+                .map(this::buildDTO);
     }
     private ExerciseDTO buildExerciseDTO(Exercise exercise) {
         return  ExerciseDTO.builder()
                 .name(exercise.getName())
+                .duration(exercise.getDuration())
+                .type(exercise.getType())
                 .build();
     }
 }

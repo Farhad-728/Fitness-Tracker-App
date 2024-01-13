@@ -78,7 +78,7 @@ public class GoalServiceImpl implements GoalService {
     }
 
     private GoalDTO buildGoalDTO(Goal g) {
-        return  GoalDTO.builder()
+        return GoalDTO.builder()
                 .id(g.getId())
                 .name(g.getName())
                 .goalType(g.getGoalType())
@@ -89,7 +89,7 @@ public class GoalServiceImpl implements GoalService {
     @Override
     public void deleteGoalById(Long id) {
         Optional<Goal> goal = goalRepository.findById(id);
-        if(goal.isPresent()) {
+        if (goal.isPresent()) {
             goalRepository.delete(goal.get());
         } else {
             throw new GoalNotFoundException("Goal not found to delete");
