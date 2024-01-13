@@ -5,6 +5,8 @@ import com.example.fitnesstrackerapp.entity.Exercise;
 import com.example.fitnesstrackerapp.repository.ExerciseRepository;
 import com.example.fitnesstrackerapp.service.ExerciseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,8 +33,9 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exerciseRepository.findAll(pageRequest)
                 .map(this::buildDTO);
     }
-    private ExerciseDTO buildExerciseDTO(Exercise exercise) {
-        return  ExerciseDTO.builder()
+
+    private ExerciseDTO buildDTO(Exercise exercise) {
+        return ExerciseDTO.builder()
                 .name(exercise.getName())
                 .duration(exercise.getDuration())
                 .type(exercise.getType())

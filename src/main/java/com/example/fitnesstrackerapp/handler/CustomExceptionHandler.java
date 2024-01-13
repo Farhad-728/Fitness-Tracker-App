@@ -27,15 +27,13 @@ public class CustomExceptionHandler {
 //        return buildFailureResponse(HttpStatus.BAD_REQUEST, defaultMessage);
 //    }
 
-    @ExceptionHandler({UserNotFoundException.class, GoalNotFoundException.class, ExerciseNotFoundException.class, WorkoutNotFoundException.class})
+    @ExceptionHandler({UserNotFoundException.class,
+            GoalNotFoundException.class,
+            ExerciseNotFoundException.class,
+            WorkoutNotFoundException.class})
     public ResponseEntity<FailureResponse> handleNotFoundException(Exception ex) {
         return buildFailureResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }
-
-//    @ExceptionHandler(UserNotFoundException.class)
-//    public ResponseEntity<FailureResponse> handleNotFoundException(UserNotFoundException ex) {
-//        return buildFailureResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
-//    }
 
     private ResponseEntity<FailureResponse> buildFailureResponse(HttpStatus status, String errorDetail) {
         log.error("Exception occurred: {} ", errorDetail);

@@ -5,9 +5,12 @@ import com.example.fitnesstrackerapp.dto.ExerciseDTO;
 import com.example.fitnesstrackerapp.service.ExerciseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
