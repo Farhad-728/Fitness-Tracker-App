@@ -1,5 +1,6 @@
 package com.example.fitnesstrackerapp.entity;
 
+import com.example.fitnesstrackerapp.enums.ExerciseType;
 import jakarta.persistence.*;
 import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
@@ -19,9 +20,10 @@ public class Exercise {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "names")
     private String name;
     private double duration;
+    @Enumerated(EnumType.STRING)
+    private ExerciseType type;
 
     @ManyToMany(mappedBy = "exercises")
     private Set<Workout> workouts;

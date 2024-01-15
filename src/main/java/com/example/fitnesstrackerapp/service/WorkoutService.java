@@ -1,8 +1,14 @@
 package com.example.fitnesstrackerapp.service;
 
+import com.example.fitnesstrackerapp.dto.ExerciseDTO;
 import com.example.fitnesstrackerapp.dto.WorkoutDTO;
-import org.springframework.web.bind.annotation.RequestParam;
+import com.example.fitnesstrackerapp.entity.Exercise;
+
+import java.util.List;
 
 public interface WorkoutService {
-    void save(WorkoutDTO workoutDTO, Long userId, Long exerciseId);
+    void save(Long userId, Long exerciseId);
+    void update(Long workoutId, Long exerciseId);
+
+    List<WorkoutDTO> findAll();
 }
