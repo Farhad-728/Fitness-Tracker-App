@@ -10,9 +10,6 @@ import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.GoalService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;

@@ -1,7 +1,6 @@
 package com.example.fitnesstrackerapp.service.impl;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
-import com.example.fitnesstrackerapp.entity.User;
 import com.example.fitnesstrackerapp.entity.UserProfile;
 import com.example.fitnesstrackerapp.mapper.UserMapper;
 import com.example.fitnesstrackerapp.repository.UserProfileRepository;
@@ -9,11 +8,8 @@ import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
-
 
 @Service
 @RequiredArgsConstructor

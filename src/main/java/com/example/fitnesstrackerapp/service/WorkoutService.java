@@ -1,9 +1,6 @@
 package com.example.fitnesstrackerapp.service;
 
-import com.example.fitnesstrackerapp.dto.ExerciseDTO;
 import com.example.fitnesstrackerapp.dto.WorkoutDTO;
-import com.example.fitnesstrackerapp.entity.Exercise;
-
 import java.util.List;
 
 public interface WorkoutService {

@@ -9,10 +9,16 @@ import org.springframework.data.domain.Page;
 public interface ExerciseService {
 
     Exercise save(ExerciseDTO exerciseDTO);
+
     Page<ExerciseDTO> findAll(PageRequest pageRequest);
+
     Page<ExerciseDTO> findByName(String name, PageRequest pageRequest);
+
     Page<ExerciseDTO> filterByType(ExerciseType type, PageRequest pageRequest);
 
-    Page<ExerciseDTO> filterByDuration(double duration, PageRequest pageRequest);
+    Page<ExerciseDTO> findByDuration(double duration, PageRequest pageRequest);
+
+    Page<ExerciseDTO> findByMaxAndMin(double minDuration, double maxDuration, PageRequest pageRequest);
+
 
 }

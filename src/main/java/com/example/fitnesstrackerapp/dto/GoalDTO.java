@@ -1,7 +1,6 @@
 package com.example.fitnesstrackerapp.dto;
 import com.example.fitnesstrackerapp.enums.GoalType;
 import lombok.*;
-
 import java.time.LocalDate;
 
 @Getter

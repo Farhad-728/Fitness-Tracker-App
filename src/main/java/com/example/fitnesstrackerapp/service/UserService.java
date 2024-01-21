@@ -1,7 +1,6 @@
 package com.example.fitnesstrackerapp.service;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
-
 import java.util.List;
 
 

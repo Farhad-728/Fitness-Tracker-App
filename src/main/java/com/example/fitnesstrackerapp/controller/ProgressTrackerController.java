@@ -1,5 +1,4 @@
 package com.example.fitnesstrackerapp.controller;
-
 import com.example.fitnesstrackerapp.entity.ProgressTracker;
 import com.example.fitnesstrackerapp.service.ProgressTrackerService;
 import io.swagger.v3.oas.annotations.tags.Tag;

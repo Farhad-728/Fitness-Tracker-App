@@ -36,14 +36,20 @@ public class ExerciseServiceImpl implements ExerciseService {
 
     @Override
     public Page<ExerciseDTO> filterByType(ExerciseType type, PageRequest pageRequest) {
-        Page<Exercise> exercisesByType =  exerciseRepository.findByTypeOrderByDurationDesc(type, pageRequest);
+        Page<Exercise> exercisesByType = exerciseRepository.findByTypeOrderByDurationDesc(type, pageRequest);
         return exercisesByType.map(this::buildDTO);
     }
 
     @Override
-    public Page<ExerciseDTO> filterByDuration(double duration, PageRequest pageRequest) {
+    public Page<ExerciseDTO> findByDuration(double duration, PageRequest pageRequest) {
         Page<Exercise> exercisesByDuration = exerciseRepository.findByDurationGreaterThan(duration, pageRequest);
         return exercisesByDuration.map(this::buildDTO);
+    }
+
+    @Override
+    public Page<ExerciseDTO> findByMaxAndMin(double minDuration, double maxDuration, PageRequest pageRequest) {
+        Page<Exercise> exercisesByMaxAndMin = exerciseRepository.findByDurationBetweenMaxAndMin(minDuration, maxDuration, pageRequest);
+        return exercisesByMaxAndMin.map(this::buildDTO);
     }
 
     public Page<ExerciseDTO> findAll(PageRequest pageRequest) {
