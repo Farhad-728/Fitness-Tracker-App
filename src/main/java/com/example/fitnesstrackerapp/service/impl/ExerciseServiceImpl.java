@@ -2,6 +2,7 @@ package com.example.fitnesstrackerapp.service.impl;
 
 import com.example.fitnesstrackerapp.dto.ExerciseDTO;
 import com.example.fitnesstrackerapp.entity.Exercise;
+import com.example.fitnesstrackerapp.enums.ExerciseType;
 import com.example.fitnesstrackerapp.repository.ExerciseRepository;
 import com.example.fitnesstrackerapp.service.ExerciseService;
 import lombok.RequiredArgsConstructor;

@@ -25,7 +25,7 @@ public class Exercise {
     @Enumerated(EnumType.STRING)
     private ExerciseType type;
 
-    @ManyToMany(mappedBy = "exercises")
-    private Set<Workout> workouts;
+//    @ManyToMany(mappedBy = "exercises")
+//    private Set<Workout> workouts;
 
 }

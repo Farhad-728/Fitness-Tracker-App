@@ -309,6 +309,127 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "allWorkouts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms//v1/workouts/find",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"",
+						"v1",
+						"workouts",
+						"find"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "workoutUpdate",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/workouts/update?workoutId=1&exerciseId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"workouts",
+						"update"
+					],
+					"query": [
+						{
+							"key": "workoutId",
+							"value": "1"
+						},
+						{
+							"key": "exerciseId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "searchExerciseByName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/exercises/searchByName?name=test1&offset=0&pageSize=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"exercises",
+						"searchByName"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "test1"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "10"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "filterExerciseByType",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "getProgress",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "filterByDuration",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
 		}
 	]
 }

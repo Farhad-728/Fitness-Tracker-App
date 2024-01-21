@@ -13,16 +13,30 @@ import lombok.NoArgsConstructor;
 @Builder
 @Entity
 public class ProgressTracker {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Double weight;
-    private Integer activeDays;
+    private double weight;
+    private long totalTime;
+    private long exerciseCount;
+    private long activeDays;
 
-    //    private Timer totalTime;
-//private List<Exercise> exerciseList;
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_profile_id")
-    private UserProfile userProfile;
+    private List<Exercise> exercises;
 
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "fitness_user_id")
+    private User user;
+
+
+
+    public static void main(String[] args) {
+        LocalDateTime dateTime = LocalDateTime.now();
+        LocalDateTime truncatedToDays = dateTime.truncatedTo(ChronoUnit.DAYS);
+
+        System.out.println("Original: " + dateTime);
+        System.out.println("Truncated to days: " + truncatedToDays);
+    }
+
+    //getTotalTime - minutes
+    //getCompletedExercisesCount - long
+    //getCompletedExercises - list of exercises
+    //getActiveDays (all, last 7 days, last 30 days) - long
 }
