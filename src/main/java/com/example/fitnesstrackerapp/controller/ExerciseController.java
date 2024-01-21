@@ -1,6 +1,5 @@
 package com.example.fitnesstrackerapp.controller;
 
-
 import com.example.fitnesstrackerapp.dto.ExerciseDTO;
 import com.example.fitnesstrackerapp.enums.ExerciseType;
 import com.example.fitnesstrackerapp.service.ExerciseService;
@@ -52,11 +51,21 @@ public class ExerciseController {
         PageRequest pageRequest = PageRequest.of(offset, size);
         return exerciseService.filterByType(type, pageRequest);
     }
-    @GetMapping("/filterByDuration")
-    public Page<ExerciseDTO> filterByDuration(@RequestParam(name = "duration") double duration,
-                                              @RequestParam(name = "offset", defaultValue = "0") int offset,
-                                              @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+
+    @GetMapping("/findByDuration")
+    public Page<ExerciseDTO> findByDuration(@RequestParam(name = "duration") double duration,
+                                            @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                            @RequestParam(name = "pageSize", defaultValue = "10") int size) {
         PageRequest pageRequest = PageRequest.of(offset, size);
-        return exerciseService.filterByDuration(duration, pageRequest);
+        return exerciseService.findByDuration(duration, pageRequest);
+    }
+
+    @GetMapping("/findByDurationMaxAndMin/{minDuration}/{maxDuration}")
+    public Page<ExerciseDTO> findByMaxAndMin(@PathVariable double minDuration,
+                                             @PathVariable double maxDuration,
+                                             @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                             @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.findByMaxAndMin(minDuration, maxDuration, pageRequest);
     }
 }

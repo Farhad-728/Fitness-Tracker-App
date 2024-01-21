@@ -1,11 +1,9 @@
 package com.example.fitnesstrackerapp.controller;
-
 import com.example.fitnesstrackerapp.dto.WorkoutDTO;
 import com.example.fitnesstrackerapp.service.WorkoutService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
