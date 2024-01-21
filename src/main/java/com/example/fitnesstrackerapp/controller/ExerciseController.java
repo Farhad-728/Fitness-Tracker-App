@@ -35,8 +35,28 @@ public class ExerciseController {
         return exerciseService.findAll(pageRequest);
     }
 
-    public Page<ExerciseDTO> searchByName(@RequestParam(name = "search", defaultValue = "name") String name) {
+    @GetMapping("/searchByName")
+    public Page<ExerciseDTO> searchByName(@RequestParam(name = "name") String name,
+                                          @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                          @RequestParam(name = "pageSize", defaultValue = "10") int size) {
 
-        return exerciseService.findAll();
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.findByName(name, pageRequest);
+    }
+
+
+    @GetMapping("/filterByType")
+    public Page<ExerciseDTO> filterByType(@RequestParam(name = "type") ExerciseType type,
+                                          @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                          @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.filterByType(type, pageRequest);
+    }
+    @GetMapping("/filterByDuration")
+    public Page<ExerciseDTO> filterByDuration(@RequestParam(name = "duration") double duration,
+                                              @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                              @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.filterByDuration(duration, pageRequest);
     }
 }

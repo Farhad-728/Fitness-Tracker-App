@@ -10,4 +10,9 @@ public interface ExerciseService {
 
     Exercise save(ExerciseDTO exerciseDTO);
     Page<ExerciseDTO> findAll(PageRequest pageRequest);
+    Page<ExerciseDTO> findByName(String name, PageRequest pageRequest);
+    Page<ExerciseDTO> filterByType(ExerciseType type, PageRequest pageRequest);
+
+    Page<ExerciseDTO> filterByDuration(double duration, PageRequest pageRequest);
+
 }

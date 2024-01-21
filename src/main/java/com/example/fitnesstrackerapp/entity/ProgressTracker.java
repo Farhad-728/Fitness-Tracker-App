@@ -6,12 +6,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
+
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Entity
 public class ProgressTracker {
     private double weight;
     private long totalTime;
