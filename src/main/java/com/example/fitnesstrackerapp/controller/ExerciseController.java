@@ -2,6 +2,7 @@ package com.example.fitnesstrackerapp.controller;
 
 
 import com.example.fitnesstrackerapp.dto.ExerciseDTO;
+import com.example.fitnesstrackerapp.enums.ExerciseType;
 import com.example.fitnesstrackerapp.service.ExerciseService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
 
 
 @RestController
@@ -35,8 +35,28 @@ public class ExerciseController {
         return exerciseService.findAll(pageRequest);
     }
 
-    public Page<ExerciseDTO> searchByName(@RequestParam(name = "search", defaultValue = "name") String name) {
+    @GetMapping("/searchByName")
+    public Page<ExerciseDTO> searchByName(@RequestParam(name = "name") String name,
+                                          @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                          @RequestParam(name = "pageSize", defaultValue = "10") int size) {
 
-        return exerciseService.findAll();
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.findByName(name, pageRequest);
+    }
+
+
+    @GetMapping("/filterByType")
+    public Page<ExerciseDTO> filterByType(@RequestParam(name = "type") ExerciseType type,
+                                          @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                          @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.filterByType(type, pageRequest);
+    }
+    @GetMapping("/filterByDuration")
+    public Page<ExerciseDTO> filterByDuration(@RequestParam(name = "duration") double duration,
+                                              @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                              @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.filterByDuration(duration, pageRequest);
     }
 }
