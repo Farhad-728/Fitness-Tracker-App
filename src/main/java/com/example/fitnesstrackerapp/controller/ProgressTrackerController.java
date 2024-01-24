@@ -5,10 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,8 +16,9 @@ public class ProgressTrackerController {
     private final ProgressTrackerService trackerService;
 
     @GetMapping("/progress/{userId}")
-    private ResponseEntity<ProgressTracker> getProgress(@PathVariable Long userId) {
-        ProgressTracker progressTracker = trackerService.getProgress(userId);
+    private ResponseEntity<ProgressTracker> getProgress(@PathVariable Long userId,
+                                                        @RequestParam Long numberOfDays) {
+        ProgressTracker progressTracker = trackerService.getProgress(userId, numberOfDays);
         return new ResponseEntity<>(progressTracker, HttpStatus.OK);
     }
 }

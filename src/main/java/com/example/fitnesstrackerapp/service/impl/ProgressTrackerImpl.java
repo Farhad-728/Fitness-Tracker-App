@@ -7,9 +7,11 @@ import com.example.fitnesstrackerapp.repository.WorkoutRepository;
 import com.example.fitnesstrackerapp.service.ProgressTrackerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,7 +35,7 @@ public class ProgressTrackerImpl implements ProgressTrackerService {
     public long getTotalTime(List<Workout> workouts) {
         return workouts.stream()
                 .mapToLong(workout -> Duration.between(workout.getStartTime(), workout.getEndTime())
-                .toMinutes())
+                        .toMinutes())
                 .sum();
     }
 
@@ -52,23 +54,10 @@ public class ProgressTrackerImpl implements ProgressTrackerService {
                 .collect(Collectors.toList());
     }
 
-    public long getActiveDays(int numberOfDays, List<Workout> workouts) {
-        if (numberOfDays <= 0) {
-            return workouts.stream()
-                    .map(workout -> workout.getStartTime().truncatedTo(ChronoUnit.DAYS))
-                    .count();
-        } else {
-            LocalDateTime threshold = LocalDateTime.now().minusDays(numberOfDays);
-            return workouts.stream()
-                    .filter(workout -> workout.getStartTime().isAfter(threshold))
-                    .map(workout -> workout.getStartTime().truncatedTo(ChronoUnit.DAYS))
-                    .count();
-
-            // last 30 days
-            //now - 1-13-2024
-            //threshold - 12-13-2024
-            //workout star time - 11-20-2024
-            // start 12-20-2024
-        }
+    public long getActiveDays(List<Workout> workouts) {
+        return workouts.stream()
+                .map(workout -> workout.getStartTime().truncatedTo(ChronoUnit.DAYS))
+                .count();
     }
 }
+

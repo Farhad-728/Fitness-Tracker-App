@@ -52,6 +52,12 @@ public class ExerciseServiceImpl implements ExerciseService {
         return exercisesByMaxAndMin.map(this::buildDTO);
     }
 
+    @Override
+    public Page<ExerciseDTO> findByTypeDuration(ExerciseType exerciseType, double minDuration, PageRequest pageRequest) {
+        Page<Exercise> exercisesByTypeDuration = exerciseRepository.findByTypeAndDuration(exerciseType, minDuration, pageRequest);
+        return  exercisesByTypeDuration.map(this::buildDTO);
+    }
+
     public Page<ExerciseDTO> findAll(PageRequest pageRequest) {
         return exerciseRepository.findAll(pageRequest)
                 .map(this::buildDTO);
