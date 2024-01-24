@@ -20,5 +20,5 @@ public interface ExerciseService {
 
     Page<ExerciseDTO> findByMaxAndMin(double minDuration, double maxDuration, PageRequest pageRequest);
 
-
+    Page<ExerciseDTO> findByTypeDuration(ExerciseType exerciseType, double minDuration, PageRequest pageRequest);
 }

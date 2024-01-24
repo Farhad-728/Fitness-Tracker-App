@@ -68,4 +68,13 @@ public class ExerciseController {
         PageRequest pageRequest = PageRequest.of(offset, size);
         return exerciseService.findByMaxAndMin(minDuration, maxDuration, pageRequest);
     }
+
+    @GetMapping("/findByTypeAndDuration/{exerciseType}/{minDuration}")
+    public Page<ExerciseDTO> findByTypeDuration(@PathVariable ExerciseType exerciseType,
+                                                @PathVariable double minDuration,
+                                                @RequestParam(name = "offset", defaultValue = "0") int offset,
+                                                @RequestParam(name = "pageSize", defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(offset, size);
+        return exerciseService.findByTypeDuration(exerciseType, minDuration, pageRequest);
+    }
 }
