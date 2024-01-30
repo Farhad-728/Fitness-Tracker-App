@@ -9,6 +9,7 @@ import com.example.fitnesstrackerapp.repository.UserProfileRepository;
 import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -23,8 +24,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.web.multipart.MultipartFile;
+
+
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -72,4 +77,103 @@ public class UserServiceImpl implements UserService {
                 () -> new RuntimeException("Profile not found")
         );
     }
+
+    @Override
+    public void uploadFile(Long userId, MultipartFile file) {
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        if (profile.isPresent()) {
+            try {
+                long size = file.getSize();
+                if (file.getBytes().length > (1024 * 1024)) {
+                    throw new Exception("File size exceeds maximum limit");
+                }
+                profile.get().setImage(file.getBytes());
+                userProfileRepository.save(profile.get());
+            } catch (Exception e) {
+                log.error(e.getMessage());
+            }
+        }
+    }
+
+    @Override
+    public byte[] getFile(Long userId) {
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        if (profile.isPresent()) {
+            return profile.get().getImage();
+        }
+        return null;
+    }
+
+    @Override
+    public void removeFile(Long userId) {
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        profile.ifPresentOrElse(
+                p -> {
+                    p.setImage(null);
+                    userProfileRepository.save(p);
+                },
+                () -> new RuntimeException("Profile not found")
+        );
+    }
+
+    @Override
+    public List<User> findUsersWithoutWorkoutsForTheWeek() {
+        LocalDate startOfWeek = LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
+        LocalDate endOfWeek = startOfWeek.plusDays(6);
+
+        List<User> usersWithoutWorkouts = new ArrayList<>();
+
+        return usersWithoutWorkouts;
+
+    }
+
+//    public final static String uploadDir = "C:\\Users\\Shams\\Zoom";
+
+
+
+/*    public void uploadFilePC(Long userId, MultipartFile file) {
+        // Validate and save the file content to UserProfile entity
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        String fileName = profile.get().getId() + "_" + file.getOriginalFilename();
+        fileName.setProfileImageName(fileName);
+
+        // Save the file to the file server directory
+        Path filePath = Path.of(uploadDir).resolve(fileName);
+        try {
+//            Files.write(filePath, file.getBytes());
+            Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
+            userProfileRepository.save(p);
+        } catch (IOException e) {
+            // Handle exception (e.g., log error)
+            e.printStackTrace();
+        }
+    }
+
+    public byte[] getFilePC(Long userId) throws IOException {
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        String fileName = userProfile.getProfileImageName();
+
+        // Retrieve file content from the file server directory
+        Path filePath = Path.of(uploadDir).resolve(fileName);
+        return Files.readAllBytes(filePath);
+    }
+
+    public void removeFilePC(Long userId) {
+        // Remove file from the file server directory
+        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUserId(userId);
+        String fileName = userProfile.getProfileImageName();
+        Path filePath = Path.of(uploadDir).resolve(fileName);
+
+        try {
+            Files.deleteIfExists(filePath);
+        } catch (IOException e) {
+            // Handle exception (e.g., log error)
+            e.printStackTrace();
+        }
+
+        // Update UserProfile entity to remove the file name
+        userProfile.setProfileImage(null);
+        saveUserProfile(userProfile);
+    }*/
+
 }

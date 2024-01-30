@@ -26,6 +26,7 @@ public class GoalController {
     public void updateGoal(@RequestBody GoalDTO goalDTO) {
         goalService.updateGoal(goalDTO);
     }
+
     @GetMapping
     public List<GoalDTO> getGoals() {
         return goalService.getAllGoals();

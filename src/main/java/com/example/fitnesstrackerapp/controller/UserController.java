@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 @RestController
@@ -42,5 +44,12 @@ public class UserController {
     @DeleteMapping("/delete/{userId}")
     private void deleteUser(@PathVariable Long userId) {
         userService.deleteUser(userId);
+    }
+
+    @PostMapping("/upload/{userId}")
+    public ResponseEntity<String> uploadFile(@PathVariable Long userId,
+                                             @RequestParam("file") MultipartFile file) {
+        userService.uploadFile(userId, file);
+        return ResponseEntity.ok("File uploaded successfully. File Name: ");
     }
 }
