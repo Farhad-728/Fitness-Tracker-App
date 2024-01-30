@@ -10,3 +10,21 @@ spring:
     hibernate:
       ddl-auto: update
     open-in-view: false
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: test@gmail.com
+    password: P@ssw0rd
+    from: fitness-tracker
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+          socketFactory:
+            port: 465
+            class: javax.net.ssl.SSLSocketFactory
+mail:
+  send: 0
+  subject: WeeklyReminder
+  text: This is a reminder to stay active! Here are some suggested exercises based on your preferences

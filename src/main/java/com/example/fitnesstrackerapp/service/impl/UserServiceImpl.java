@@ -1,13 +1,25 @@
 package com.example.fitnesstrackerapp.service.impl;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
+import com.example.fitnesstrackerapp.entity.User;
 import com.example.fitnesstrackerapp.entity.UserProfile;
+import com.example.fitnesstrackerapp.entity.Workout;
 import com.example.fitnesstrackerapp.mapper.UserMapper;
 import com.example.fitnesstrackerapp.repository.UserProfileRepository;
 import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjuster;
+import java.time.temporal.TemporalAdjusters;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
