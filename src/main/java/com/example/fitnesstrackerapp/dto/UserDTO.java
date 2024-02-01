@@ -32,4 +32,6 @@ public class UserDTO {
 
     private Double weight;
     private Gender gender;
+
+    private String role;
 }

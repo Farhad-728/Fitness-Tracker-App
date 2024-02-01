@@ -16,7 +16,7 @@ public class ProgressTrackerController {
     private final ProgressTrackerService trackerService;
 
     @GetMapping("/progress/{userId}")
-    private ResponseEntity<ProgressTracker> getProgress(@PathVariable Long userId,
+    public ResponseEntity<ProgressTracker> getProgress(@PathVariable Long userId,
                                                         @RequestParam Long numberOfDays) {
         ProgressTracker progressTracker = trackerService.getProgress(userId, numberOfDays);
         return new ResponseEntity<>(progressTracker, HttpStatus.OK);

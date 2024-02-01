@@ -19,7 +19,7 @@ public class ReminderService {
     private final UserRepository userRepository;
     private final MailService mailService;
 
-    @Scheduled(cron = "*/25 * * * * *")
+//    @Scheduled(cron = "*/25 * * * * *")
     public void sendReminderEmails() {
         log.info("Cron job started to work");
         List<User> usersWithoutWorkouts = userRepository.findUsersWithoutWorkoutsForLast7Days();

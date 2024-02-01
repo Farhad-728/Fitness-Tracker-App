@@ -54,7 +54,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n        \"username\": \"Alik\",\r\n        \"email\": \"alakbar@gmail.com\",\r\n        \"password\": \"Aa123456!\",\r\n        \"name\": \"Alakbar\",\r\n        \"age\": 26,\r\n        \"phoneNumber\": \"+994552356080\",\r\n        \"weight\": 75.5,\r\n        \"gender\": \"MALE\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -84,7 +84,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n        \"username\": \"Samir\",\r\n        \"email\": \"Arzu@gmail.com\",\r\n        \"password\": \"Aa12345\",\r\n        \"name\": \"Arzu1\",\r\n        \"age\": 22,\r\n        \"phoneNumber\": \"+994505001212\",\r\n        \"weight\": 58.0,\r\n        \"gender\": \"FEMALE\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -113,7 +113,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/users/delete/10",
+					"raw": "localhost:8080/demo-ms/v1/users/delete/11",
 					"host": [
 						"localhost"
 					],
@@ -123,7 +123,7 @@
 						"v1",
 						"users",
 						"delete",
-						"10"
+						"11"
 					]
 				}
 			},
@@ -136,7 +136,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"name\": \"lose_weight\",\r\n        \"target\": \"80 kg\",\r\n        \"goalType\": \"WEIGHTLOSS\"\r\n}",
+					"raw": "{\r\n        \"name\": \"gainweight\",\r\n        \"target\": \"82.0 kg\",\r\n        \"goalType\": \"GAINWEIGHT\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,7 +144,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/demo-ms/goals/save/10",
+					"raw": "localhost:8080/demo-ms/goals/save/13",
 					"host": [
 						"localhost"
 					],
@@ -153,7 +153,7 @@
 						"demo-ms",
 						"goals",
 						"save",
-						"10"
+						"13"
 					]
 				}
 			},
@@ -235,7 +235,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"name\": \"corework\",\r\n        \"duration\": \"32.0\"\r\n}",
+					"raw": "{\r\n        \"name\": \"Stretching\",\r\n        \"duration\": \"8.0\",\r\n        \"type\": \"STRETCHING\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -265,7 +265,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n        \"type\": \"RUN\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -273,17 +273,26 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/demo-ms//v1/workouts/save",
+					"raw": "localhost:8080/demo-ms/v1/workouts/save?userId=7&exerciseId=4",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"demo-ms",
-						"",
 						"v1",
 						"workouts",
 						"save"
+					],
+					"query": [
+						{
+							"key": "userId",
+							"value": "7"
+						},
+						{
+							"key": "exerciseId",
+							"value": "4"
+						}
 					]
 				}
 			},
@@ -295,7 +304,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/exercises/find",
+					"raw": "localhost:8080/demo-ms/v1/exercises/findAll?offset=0&pageSize=6&sortBy=duration",
 					"host": [
 						"localhost"
 					],
@@ -304,7 +313,21 @@
 						"demo-ms",
 						"v1",
 						"exercises",
-						"find"
+						"findAll"
+					],
+					"query": [
+						{
+							"key": "offset",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "6"
+						},
+						{
+							"key": "sortBy",
+							"value": "duration"
+						}
 					]
 				}
 			},
@@ -316,14 +339,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms//v1/workouts/find",
+					"raw": "localhost:8080/demo-ms/v1/workouts/find",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"demo-ms",
-						"",
 						"v1",
 						"workouts",
 						"find"
@@ -411,7 +433,34 @@
 			"name": "filterExerciseByType",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/exercises/filterByType?type=RUN&offset&pageSize",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"exercises",
+						"filterByType"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "RUN"
+						},
+						{
+							"key": "offset",
+							"value": null
+						},
+						{
+							"key": "pageSize",
+							"value": null
+						}
+					]
+				}
 			},
 			"response": []
 		},
@@ -419,15 +468,217 @@
 			"name": "getProgress",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/tracker/progress/7?numberOfDays=10",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"tracker",
+						"progress",
+						"7"
+					],
+					"query": [
+						{
+							"key": "numberOfDays",
+							"value": "10"
+						}
+					]
+				}
 			},
 			"response": []
 		},
 		{
-			"name": "filterByDuration",
+			"name": "findByDuration",
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/exercises/findByDuration?duration=8&",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"exercises",
+						"findByDuration"
+					],
+					"query": [
+						{
+							"key": "duration",
+							"value": "8"
+						},
+						{
+							"key": "",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByBetweenMaxAndMin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/exercises/findByDurationMaxAndMin/8/32",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"exercises",
+						"findByDurationMaxAndMin",
+						"8",
+						"32"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByTypeAndDuration",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/exercises/findByTypeAndDuration/RUN/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"exercises",
+						"findByTypeAndDuration",
+						"RUN",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveRole",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"name\": \"ADMIN\"\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/roles/save",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"roles",
+						"save"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "uploadFile",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "postman-cloud:///1eec123c-745c-4a80-8efb-b6551385298b"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/demo-ms/v1/users/upload/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v1",
+						"users",
+						"upload",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getFileUserId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v2/users/getFile/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v2",
+						"users",
+						"getFile",
+						"12"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "removeFileByUserId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/demo-ms/v2/users/deleteFile/12",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"demo-ms",
+						"v2",
+						"users",
+						"deleteFile",
+						"12"
+					]
+				}
 			},
 			"response": []
 		}

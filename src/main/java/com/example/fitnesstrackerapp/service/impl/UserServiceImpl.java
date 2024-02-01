@@ -1,30 +1,26 @@
 package com.example.fitnesstrackerapp.service.impl;
 
 import com.example.fitnesstrackerapp.dto.UserDTO;
+import com.example.fitnesstrackerapp.entity.Role;
 import com.example.fitnesstrackerapp.entity.User;
 import com.example.fitnesstrackerapp.entity.UserProfile;
-import com.example.fitnesstrackerapp.entity.Workout;
 import com.example.fitnesstrackerapp.mapper.UserMapper;
+import com.example.fitnesstrackerapp.repository.RoleRepository;
 import com.example.fitnesstrackerapp.repository.UserProfileRepository;
 import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.springframework.web.multipart.MultipartFile;
 
 
 @Service
@@ -35,6 +31,9 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder passwordEncoder;
+    private final RoleRepository roleRepository;
+
 
     @Override
     public List<UserDTO> getUsers() {
@@ -52,7 +51,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(UserDTO userDTO) {
+        //check if username is already in db
+        if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
+            throw new RuntimeException();
+        }
         UserProfile profile = userMapper.fromDTOToProfile(userDTO);
+        // findByRoleName - Role obj
+        Role role = roleRepository.findByName(userDTO.getRole()).orElse(null);
+        //set Role obj to user
+        profile.getUser().setRole(role);
+        //encode password
+        profile.getUser().setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userProfileRepository.save(profile);
     }
 
