@@ -22,11 +22,11 @@ public class UserProfile {
     private double weight;
     private Gender gender;
 
+    @Lob //BLOB, CLOB
+    private byte[] image;
+
     @OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "fitness_user_id")
     private User user;
-
-//    @OneToMany(mappedBy = "userProfile", cascade = CascadeType.ALL, orphanRemoval = true)
-//    private List<Workout> workouts = new ArrayList<>();
 }
 

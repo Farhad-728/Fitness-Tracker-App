@@ -17,22 +17,23 @@ public class GoalController {
     private final GoalService goalService;
 
     @PostMapping(value = "/save/{userId}")
-    private ResponseEntity createGoal(@RequestBody GoalDTO goalDTO, @PathVariable Long userId) {
+    public ResponseEntity createGoal(@RequestBody GoalDTO goalDTO, @PathVariable Long userId) {
         goalService.saveGoal(goalDTO, userId);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/update")
-    private void updateGoal(@RequestBody GoalDTO goalDTO) {
+    public void updateGoal(@RequestBody GoalDTO goalDTO) {
         goalService.updateGoal(goalDTO);
     }
+
     @GetMapping
-    private List<GoalDTO> getGoals() {
+    public List<GoalDTO> getGoals() {
         return goalService.getAllGoals();
     }
 
     @DeleteMapping("/delete/{id}")
-    private void deleteGoalById(@PathVariable Long id) {
+    public void deleteGoalById(@PathVariable Long id) {
         goalService.deleteGoalById(id);
     }
 }

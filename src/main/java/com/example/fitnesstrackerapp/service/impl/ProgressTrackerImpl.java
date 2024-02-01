@@ -7,11 +7,9 @@ import com.example.fitnesstrackerapp.repository.WorkoutRepository;
 import com.example.fitnesstrackerapp.service.ProgressTrackerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,13 +20,22 @@ public class ProgressTrackerImpl implements ProgressTrackerService {
     private final WorkoutRepository workoutRepository;
 
     @Override
-    public ProgressTracker getProgress(Long userId) {
-        List<Workout> workouts = workoutRepository.findByUserId(userId);
+    public ProgressTracker getProgress(Long userId, Long numberOfDays) {
+        List<Workout> workouts;
+
+        if (numberOfDays <= 0) {
+            workouts = workoutRepository.findByUserId(userId);
+        } else {
+            LocalDateTime threshold = LocalDateTime.now().minusDays(numberOfDays);
+            workouts = workoutRepository.findAllByDays(threshold, userId);
+        }
+
+        // user id-e all workouts -  6 months - 100 elements
         return ProgressTracker.builder()
                 .totalTime(getTotalTime(workouts))
                 .exerciseCount(getCompletedExerciseCount(workouts))
                 .exercises(fetchCompletedExercises(workouts))
-                .activeDays(getActiveDays(0, workouts))
+                .activeDays(getActiveDays(workouts))
                 .build();
     }
 

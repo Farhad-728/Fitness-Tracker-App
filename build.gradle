@@ -29,6 +29,11 @@ dependencies {
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-ui:${openapiVersion}"
     implementation "org.springdoc:springdoc-openapi-starter-webmvc-api:${openapiVersion}"
     implementation "org.modelmapper:modelmapper:2.1.1"
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+
+
+
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'org.postgresql:postgresql'
     annotationProcessor 'org.projectlombok:lombok'

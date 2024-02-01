@@ -18,14 +18,7 @@ public class ProgressTracker {
     private long totalTime;
     private long exerciseCount;
     private long activeDays;
-
     private List<Exercise> exercises;
-
-
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "fitness_user_id")
-    private User user;
-
 
 
     public static void main(String[] args) {
