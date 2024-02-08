@@ -27,9 +27,6 @@ public class UserDTO {
     @Max(value = 100, message = "age should not be more than 100")
     private Integer age;
 
-    @Pattern(regexp = "\\+994[0-9]{9}", message = "Invalid phone number, example : +994707667878")
-    private String phoneNumber;
-
     private Double weight;
     private Gender gender;
 
