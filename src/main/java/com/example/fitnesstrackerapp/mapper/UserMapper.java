@@ -6,6 +6,7 @@ import com.example.fitnesstrackerapp.entity.UserProfile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
+@Slf4j
 public class UserMapper {
     private final ModelMapper modelMapper;
     private final ObjectMapper objectMapper;
@@ -28,7 +30,9 @@ public class UserMapper {
     }
 
     public UserDTO fromProfileToDTO(UserProfile profile) {
-        return modelMapper.map(profile, UserDTO.class);
+        UserDTO userDTO = modelMapper.map(profile, UserDTO.class);
+        log.error(String.valueOf(userDTO));
+        return userDTO;
     }
 
     public List<UserDTO> fromProfilesToDTOList(List<UserProfile> userProfiles) {
