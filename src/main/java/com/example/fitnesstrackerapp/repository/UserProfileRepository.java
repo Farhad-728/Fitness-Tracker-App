@@ -14,7 +14,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
 
     //hibernate query language - HQL
 
-    @Query(value = "select up from UserProfile up where  up.user.username = : username")
+    @Query(value = "select up from UserProfile up where  up.user.username = :username")
     Optional<UserProfile> getUserProfileByUsername(@Param("username") String username);
 
     @Query(value = "select up from UserProfile up where  up.user.id = :userId")
