@@ -74,10 +74,18 @@ public class UserServiceImpl implements UserService {
                     try {
                         UserProfile updatedProfile = userMapper.fromDTOToProfileForUpdate(userDTO, p.getUser().getId());
                         Role role = roleRepository.findByName(userDTO.getRoleName()).orElse(null);
-                        if (role == null) {
-                            throw new RuntimeException("Role not found");
-                        }
-                        updatedProfile.getUser().setRole(role);
+                        User user = updatedProfile.getUser();
+                        user.setRole(role);
+
+                        User manageUser = userRepository.findById(user.getId())
+                                .orElseThrow(() -> new RuntimeException("User not found"));
+                        manageUser.setRole(user.getRole());
+                        manageUser.setUsername(user.getUsername());
+                        manageUser.setEmail(user.getEmail());
+
+                        userRepository.save(manageUser);
+//                        updatedProfile.getUser().setRole(role);
+
 //                        userRepository.save(updatedProfile.getUser()); // userRepo-nu chagir ve user obyetini gonder dto-nu yox
                         userProfileRepository.save(updatedProfile);
                     } catch (Exception exp) {
