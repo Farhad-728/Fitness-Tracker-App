@@ -18,8 +18,8 @@ public class UserProfile {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int age;
-    private double weight;
+    private Integer age;
+    private Double weight;
     private Gender gender;
 
     @Lob //BLOB, CLOB

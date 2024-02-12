@@ -11,6 +11,6 @@ import java.time.LocalDateTime;
 public class WorkoutDTO {
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private double caloriesBurned;
+    private Double caloriesBurned;
     private ExerciseType type;
 }

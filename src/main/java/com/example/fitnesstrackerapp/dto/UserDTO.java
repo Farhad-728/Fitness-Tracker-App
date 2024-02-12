@@ -30,5 +30,7 @@ public class UserDTO {
     private Double weight;
     private Gender gender;
 
+    @NotBlank(message = "Role name must not be blank")
     private String roleName;
+    private Boolean isEnabled;
 }
