@@ -1,15 +1,13 @@
 package com.example.fitnesstrackerapp.handler;
 
 import com.example.fitnesstrackerapp.dto.FailureResponse;
-import com.example.fitnesstrackerapp.exception.ExerciseNotFoundException;
-import com.example.fitnesstrackerapp.exception.GoalNotFoundException;
-import com.example.fitnesstrackerapp.exception.UserNotFoundException;
-import com.example.fitnesstrackerapp.exception.WorkoutNotFoundException;
+import com.example.fitnesstrackerapp.exception.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.time.LocalDateTime;
 
 @RestControllerAdvice
@@ -28,7 +26,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler({UserNotFoundException.class,
             GoalNotFoundException.class,
             ExerciseNotFoundException.class,
-            WorkoutNotFoundException.class})
+            WorkoutNotFoundException.class, RoleNotFoundException.class, UserProfileNotFoundException.class})
     public ResponseEntity<FailureResponse> handleNotFoundException(Exception ex) {
         return buildFailureResponse(HttpStatus.BAD_REQUEST, ex.getMessage());
     }

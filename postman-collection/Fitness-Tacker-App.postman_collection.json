@@ -9,6 +9,9 @@
 		{
 			"name": "getUsers",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
@@ -29,10 +32,13 @@
 		{
 			"name": "getUserByUsername",
 			"request": {
+				"auth": {
+					"type": "noauth"
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/users/{username}",
+					"raw": "localhost:8080/demo-ms/v1/users/Elnur",
 					"host": [
 						"localhost"
 					],
@@ -41,7 +47,7 @@
 						"demo-ms",
 						"v1",
 						"users",
-						"{username}"
+						"Elnur"
 					]
 				}
 			},
@@ -54,7 +60,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"username\": \"Alik\",\r\n        \"email\": \"alakbar@gmail.com\",\r\n        \"password\": \"Aa123456!\",\r\n        \"name\": \"Alakbar\",\r\n        \"age\": 26,\r\n        \"phoneNumber\": \"+994552356080\",\r\n        \"weight\": 75.5,\r\n        \"gender\": \"MALE\"\r\n    }",
+					"raw": "{\r\n        \"username\": \"Taleh\",\r\n        \"email\": \"elvin@gmail.com\",\r\n        \"password\": \"Ee123456!\",\r\n        \"name\": \"Taleh\",\r\n        \"age\": 33,\r\n        \"weight\": 85.0,\r\n        \"gender\": \"MALE\",\r\n        \"roleName\": \"USER\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -80,11 +86,26 @@
 		{
 			"name": "updateUser",
 			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "Mm123456!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Afaq",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"username\": \"Samir\",\r\n        \"email\": \"Arzu@gmail.com\",\r\n        \"password\": \"Aa12345\",\r\n        \"name\": \"Arzu1\",\r\n        \"age\": 22,\r\n        \"phoneNumber\": \"+994505001212\",\r\n        \"weight\": 58.0,\r\n        \"gender\": \"FEMALE\"\r\n    }",
+					"raw": "{\r\n        \"username\": \"Elnur\",\r\n        \"name\": \"Elnur\",\r\n        \"email\": \"elnur@gmail.com\",\r\n        \"roleName\": \"ADMIN\"\r\n    }",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -113,7 +134,7 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/users/delete/11",
+					"raw": "localhost:8080/demo-ms/v1/users/delete/9",
 					"host": [
 						"localhost"
 					],
@@ -123,7 +144,7 @@
 						"v1",
 						"users",
 						"delete",
-						"11"
+						"9"
 					]
 				}
 			},
@@ -136,7 +157,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"name\": \"gainweight\",\r\n        \"target\": \"82.0 kg\",\r\n        \"goalType\": \"GAINWEIGHT\"\r\n}",
+					"raw": "{\r\n        \"name\": \"musclegain\",\r\n        \"target\": \"85.0 kg\",\r\n        \"goalType\": \"MUSCLEGAIN\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -144,16 +165,17 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/demo-ms/goals/save/13",
+					"raw": "localhost:8080/demo-ms/v1/goals/save/20",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"demo-ms",
+						"v1",
 						"goals",
 						"save",
-						"13"
+						"20"
 					]
 				}
 			},
@@ -194,13 +216,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/goals",
+					"raw": "localhost:8080/demo-ms/v1/goals",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"demo-ms",
+						"v1",
 						"goals"
 					]
 				}
@@ -235,7 +258,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"name\": \"Stretching\",\r\n        \"duration\": \"8.0\",\r\n        \"type\": \"STRETCHING\"\r\n}",
+					"raw": "{\r\n        \"name\": \"Cardio\",\r\n        \"duration\": \"10.0\",\r\n        \"type\": \"CARDIO\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -265,7 +288,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n        \"type\": \"RUN\"\r\n}",
+					"raw": "{\r\n        \"type\": \"AEROBIC\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -273,7 +296,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/workouts/save?userId=7&exerciseId=4",
+					"raw": "localhost:8080/demo-ms/v1/workouts/save?userId=7&exerciseId=3",
 					"host": [
 						"localhost"
 					],
@@ -291,7 +314,7 @@
 						},
 						{
 							"key": "exerciseId",
-							"value": "4"
+							"value": "3"
 						}
 					]
 				}
@@ -369,7 +392,7 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/workouts/update?workoutId=1&exerciseId=1",
+					"raw": "localhost:8080/demo-ms/v1/workouts/update?workoutId=2&exerciseId=2",
 					"host": [
 						"localhost"
 					],
@@ -383,11 +406,11 @@
 					"query": [
 						{
 							"key": "workoutId",
-							"value": "1"
+							"value": "2"
 						},
 						{
 							"key": "exerciseId",
-							"value": "1"
+							"value": "2"
 						}
 					]
 				}
@@ -400,7 +423,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v1/exercises/searchByName?name=test1&offset=0&pageSize=10",
+					"raw": "localhost:8080/demo-ms/v1/exercises/searchByName?name=run&offset=0&pageSize=10",
 					"host": [
 						"localhost"
 					],
@@ -414,7 +437,7 @@
 					"query": [
 						{
 							"key": "name",
-							"value": "test1"
+							"value": "run"
 						},
 						{
 							"key": "offset",
@@ -666,14 +689,14 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/demo-ms/v2/users/deleteFile/12",
+					"raw": "localhost:8080/demo-ms/v1/users/deleteFile/12",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"demo-ms",
-						"v2",
+						"v1",
 						"users",
 						"deleteFile",
 						"12"
