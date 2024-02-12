@@ -67,8 +67,10 @@ public class UserServiceImpl implements UserService {
         }
         UserProfile profile = userMapper.fromDTOToProfile(userDTO);
         // findByRoleName - Role obj
-        Role role = roleRepository.findByName(userDTO.getRoleName()).orElse(null);
-        //set Role obj to user
+        Role role = roleRepository.findByName(userDTO.getRoleName()).
+                orElseThrow(() -> {
+                    throw new RoleNotFoundException("Role not found"); //RoleNotException
+                });
         profile.getUser().setRole(role);
         //encode password
 //        profile.getUser().setPassword(passwordEncoder.encode(userDTO.getPassword()));

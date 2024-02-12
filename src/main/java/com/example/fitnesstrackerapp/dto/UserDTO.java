@@ -4,7 +4,7 @@ import com.example.fitnesstrackerapp.enums.Gender;
 import jakarta.validation.constraints.*;
 import lombok.*;
 
-@Getter
+@Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor

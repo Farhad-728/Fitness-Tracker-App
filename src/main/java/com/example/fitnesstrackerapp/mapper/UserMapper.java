@@ -31,7 +31,9 @@ public class UserMapper {
 
     public UserDTO fromProfileToDTO(UserProfile profile) {
         UserDTO userDTO = modelMapper.map(profile, UserDTO.class);
-        log.error(String.valueOf(userDTO));
+        if (profile.getUser() != null) {
+            modelMapper.map(profile.getUser(), userDTO);
+        }
         return userDTO;
     }
 
@@ -46,6 +48,10 @@ public class UserMapper {
         return fromDTOToProfile(userDTO, newUser);
     }
 
+    public User fromDTOToUser(UserDTO userDTO) {
+        return modelMapper.map(userDTO, User.class);
+    }
+
     public UserProfile fromDTOToProfile(UserDTO userDTO, User user) {
         UserProfile userProfile = modelMapper.map(userDTO, UserProfile.class);
         userProfile.setUser(user);
@@ -55,10 +61,6 @@ public class UserMapper {
     public UserProfile fromDTOToProfileForUpdate(UserDTO userDTO, Long userId) {
         User user = fromDTOToUser(userDTO, userId);
         return fromDTOToProfile(userDTO, user);
-    }
-
-    public User fromDTOToUser(UserDTO userDTO) {
-        return modelMapper.map(userDTO, User.class);
     }
 
     public User fromDTOToUser(UserDTO userDTO, Long userId) {
