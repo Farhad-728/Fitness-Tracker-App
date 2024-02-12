@@ -18,7 +18,7 @@ public class Workout {
     private Long id;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private double caloriesBurned;
+    private Double caloriesBurned;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
