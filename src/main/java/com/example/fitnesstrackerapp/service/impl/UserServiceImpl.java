@@ -4,14 +4,17 @@ import com.example.fitnesstrackerapp.dto.UserDTO;
 import com.example.fitnesstrackerapp.entity.Role;
 import com.example.fitnesstrackerapp.entity.User;
 import com.example.fitnesstrackerapp.entity.UserProfile;
+import com.example.fitnesstrackerapp.exception.RoleNotFoundException;
+import com.example.fitnesstrackerapp.exception.UserNotFoundException;
+import com.example.fitnesstrackerapp.exception.UserProfileNotFoundException;
 import com.example.fitnesstrackerapp.mapper.UserMapper;
 import com.example.fitnesstrackerapp.repository.RoleRepository;
 import com.example.fitnesstrackerapp.repository.UserProfileRepository;
 import com.example.fitnesstrackerapp.repository.UserRepository;
 import com.example.fitnesstrackerapp.service.UserService;
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-//import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,7 +37,6 @@ public class UserServiceImpl implements UserService {
     //    private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
-
     @Override
     public List<UserDTO> getUsers() {
         List<UserProfile> userProfiles = userProfileRepository.findAll();
@@ -45,15 +47,23 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserByUsername(String username) {
         Optional<UserProfile> profile = userProfileRepository.getUserProfileByUsername(username);
         return profile.map(p -> userMapper.fromProfileToDTO(p))
-                .orElseThrow(() -> new RuntimeException("profile not found")); //replace with custom exception
+                .orElseThrow(() -> {
+                    throw new UserProfileNotFoundException("Profile not found");
+                }); //replace with custom exception
     }
+    //    public UserDTO getUserByUsername(String username) {
+//        Optional<UserProfile> profile = userProfileRepository.getUserProfileByUsername(username);
+//        return profile.map(p -> {
+//            return userMapper.fromProfileToDTO(p);
+//        }).orElseThrow(() -> new RuntimeException("Profile not found"));
+//    }
 
 
     @Override
     public void saveUser(UserDTO userDTO) {
         //check if username is already in db
         if (userRepository.findByUsername(userDTO.getUsername()).isPresent()) {
-            throw new RuntimeException("");
+            throw new UserNotFoundException("User not found");
         }
         UserProfile profile = userMapper.fromDTOToProfile(userDTO);
         // findByRoleName - Role obj
@@ -69,34 +79,18 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(UserDTO userDTO) {
         Optional<UserProfile> profile = userProfileRepository.getUserProfileByUsername(userDTO.getUsername());
-        profile.ifPresentOrElse(
-                p -> {
-                    try {
-                        UserProfile updatedProfile = userMapper.fromDTOToProfileForUpdate(userDTO, p.getUser().getId());
-                        Role role = roleRepository.findByName(userDTO.getRoleName()).orElse(null);
-                        User user = updatedProfile.getUser();
-                        user.setRole(role);
-
-                        User manageUser = userRepository.findById(user.getId())
-                                .orElseThrow(() -> new RuntimeException("User not found"));
-                        manageUser.setRole(user.getRole());
-                        manageUser.setUsername(user.getUsername());
-                        manageUser.setEmail(user.getEmail());
-
-                        userRepository.save(manageUser);
-//                        updatedProfile.getUser().setRole(role);
-
-//                        userRepository.save(updatedProfile.getUser()); // userRepo-nu chagir ve user obyetini gonder dto-nu yox
-                        userProfileRepository.save(updatedProfile);
-                    } catch (Exception exp) {
-//                        throw new RuntimeException("Error updating profile", exp);
-                        log.error(exp.getMessage());
-                    }
-                },
-                () -> {
-                    throw new RuntimeException("Profile not found");
-                }
-        );
+        if (profile.isPresent()) {
+            UserProfile updatedProfile = userMapper.fromDTOToProfileForUpdate(userDTO, profile.get().getUser().getId());
+            if (StringUtils.isNotBlank(userDTO.getRoleName())) {
+                Role role = roleRepository.findByName(userDTO.getRoleName()).orElseThrow(() -> {
+                    throw new RoleNotFoundException("Role not found");
+                }); //throw exception
+                updatedProfile.getUser().setRole(role);
+            }
+            userProfileRepository.save(updatedProfile);
+        } else {
+            throw new UserProfileNotFoundException("Profile not found");
+        }
     }
 
     @Override
@@ -105,7 +99,7 @@ public class UserServiceImpl implements UserService {
         profile.ifPresentOrElse(
                 userProfileRepository::delete,
                 () -> {
-                    throw new RuntimeException("Profile not found");
+                    throw new UserProfileNotFoundException("Profile not found");
                 }
         );
     }
@@ -144,7 +138,9 @@ public class UserServiceImpl implements UserService {
                     p.setImage(null);
                     userProfileRepository.save(p);
                 },
-                () -> new RuntimeException("Profile not found")
+                () -> {
+                    throw new UserProfileNotFoundException("Profile not found");
+                }
         );
     }
 
