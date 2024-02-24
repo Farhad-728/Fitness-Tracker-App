@@ -1,6 +1,7 @@
 package com.example.fitnesstrackerapp.dto;
 
 import com.example.fitnesstrackerapp.enums.ExerciseType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import java.time.LocalDateTime;
 @Getter
@@ -9,7 +10,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WorkoutDTO {
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
+    @JsonFormat(pattern = "YYYY-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
     private Double caloriesBurned;
     private ExerciseType type;
