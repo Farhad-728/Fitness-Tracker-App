@@ -1,11 +1,13 @@
 package com.example.fitnesstrackerapp.repository;
 
+import com.example.fitnesstrackerapp.entity.Role;
 import com.example.fitnesstrackerapp.entity.UserProfile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +22,9 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Query(value = "select up from UserProfile up where  up.user.id = :userId")
     Optional<UserProfile> getUserProfileByUserId(@Param("userId") Long userId);
 
+    @Query("SELECT up FROM UserProfile up JOIN FETCH up.user u WHERE u.role.name = 'USER'")
+    List<UserProfile> findByUserRole();
+
     @Query(value = "select up from UserProfile up")
     List<UserProfile> getAll();
 
@@ -30,4 +35,5 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Modifying
     @Query(value = "delete from UserProfile up where  up.user.id = :userId")
     void deleteProfileByUserId(@Param("userId") Long UserId);
+
 }

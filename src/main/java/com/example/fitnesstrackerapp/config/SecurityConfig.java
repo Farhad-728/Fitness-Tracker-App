@@ -1,5 +1,7 @@
 package com.example.fitnesstrackerapp.config;
 
+import com.example.fitnesstrackerapp.service.impl.UserDetailsServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -7,36 +9,27 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
+
+
     @Bean
-    public UserDetailsService user() {
-
-        UserDetails user1 = User.withDefaultPasswordEncoder()
-                .username("user")
-                .password("userPassword")
-                .roles("USER")
-                .build();
-
-        UserDetails user2 = User.withDefaultPasswordEncoder()
-                .username("admin")
-                .password("adminPassword")
-                .roles("USER", "ADMIN")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1, user2);
-
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration)
+            throws Exception {
+        return configuration.getAuthenticationManager();
     }
 
     @Bean
@@ -45,8 +38,8 @@ public class SecurityConfig {
                 httpSecurity.getSharedObject(AuthenticationManagerBuilder.class);
 
         authenticationManagerBuilder
-                        .userDetailsService(userDetailsServiceImpl)
-                        .passwordEncoder(passwordEncoder());
+                .userDetailsService(userDetailsServiceImpl)
+                .passwordEncoder(passwordEncoder());
 
         AuthenticationManager authenticationManager = authenticationManagerBuilder.build();
 
@@ -64,4 +57,5 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }
+
 }

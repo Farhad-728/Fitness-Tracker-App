@@ -1,16 +1,12 @@
 package com.example.fitnesstrackerapp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-/*
+import jakarta.validation.constraints.NotBlank;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
-*/
 
 
 @Data
@@ -19,7 +15,7 @@ import java.util.Collection;
 @Builder
 @Entity
 @Table(name = "fitness_users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,9 +25,10 @@ public class User {
     private Boolean isEnabled;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
+    @JoinColumn(name = "role_id", nullable = false)
     private Role role;
-/*
+
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -55,5 +52,5 @@ public class User {
     @Override
     public boolean isEnabled() {
         return false;
-    }*/
+    }
 }

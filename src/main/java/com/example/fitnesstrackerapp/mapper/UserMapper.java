@@ -58,9 +58,12 @@ public class UserMapper {
         return userProfile;
     }
 
-    public UserProfile fromDTOToProfileForUpdate(UserDTO userDTO, Long userId) {
-        User user = fromDTOToUser(userDTO, userId);
-        return fromDTOToProfile(userDTO, user);
+    public UserProfile fromDTOToProfileForUpdate(UserDTO userDTO, UserProfile oldProfile) {
+        User updatedUser = fromDTOToUser(userDTO, oldProfile.getUser().getId());
+        UserProfile updatedProfile = modelMapper.map(userDTO, UserProfile.class);
+        updatedProfile.setUser(updatedUser);
+        updatedProfile.setId(oldProfile.getId());
+        return updatedProfile;
     }
 
     public User fromDTOToUser(UserDTO userDTO, Long userId) {
