@@ -22,7 +22,7 @@ public interface UserProfileRepository extends JpaRepository<UserProfile, Long> 
     @Query(value = "select up from UserProfile up where  up.user.id = :userId")
     Optional<UserProfile> getUserProfileByUserId(@Param("userId") Long userId);
 
-    @Query("SELECT up FROM UserProfile up JOIN FETCH up.user u WHERE u.role.name = 'USER'")
+    @Query("SELECT up FROM UserProfile up WHERE up.user.role.name = 'USER' AND up.user.isEnabled = true")
     List<UserProfile> findByUserRole();
 
     @Query(value = "select up from UserProfile up")

@@ -37,8 +37,13 @@ public class UserController {
     }
 
     @PutMapping("/update")
-    public void updateUser(@RequestBody UserDTO userDTO) {
+    public void updateUser(@Valid @RequestBody UserDTO userDTO) {
         userService.updateUser(userDTO);
+    }
+
+    @PostMapping("/userEnable")
+    public void enableUser(@RequestParam String username) {
+        userService.enableUser(username);
     }
 
     @DeleteMapping("/delete/{userId}")
