@@ -1,5 +1,6 @@
 package com.example.fitnesstrackerapp.service.impl;
 
+import com.example.fitnesstrackerapp.dto.ExerciseDTO;
 import com.example.fitnesstrackerapp.dto.UserDTO;
 import com.example.fitnesstrackerapp.entity.Role;
 import com.example.fitnesstrackerapp.entity.User;
@@ -15,7 +16,9 @@ import com.example.fitnesstrackerapp.service.UserService;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.DayOfWeek;
@@ -34,12 +37,12 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserProfileRepository userProfileRepository;
     private final UserMapper userMapper;
-    //    private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
     private final RoleRepository roleRepository;
 
     @Override
     public List<UserDTO> getUsers() {
-        List<UserProfile> userProfiles = userProfileRepository.findAll();
+        List<UserProfile> userProfiles = userProfileRepository.findByUserRole();
         return userMapper.fromProfilesToDTOList(userProfiles);
     }
 
@@ -73,7 +76,7 @@ public class UserServiceImpl implements UserService {
                 });
         profile.getUser().setRole(role);
         //encode password
-//        profile.getUser().setPassword(passwordEncoder.encode(userDTO.getPassword()));
+        profile.getUser().setPassword(passwordEncoder.encode(userDTO.getPassword()));
         userProfileRepository.save(profile);
     }
 
@@ -82,17 +85,27 @@ public class UserServiceImpl implements UserService {
     public void updateUser(UserDTO userDTO) {
         Optional<UserProfile> profile = userProfileRepository.getUserProfileByUsername(userDTO.getUsername());
         if (profile.isPresent()) {
-            UserProfile updatedProfile = userMapper.fromDTOToProfileForUpdate(userDTO, profile.get().getUser().getId());
+            UserProfile updatedProfile = userMapper.fromDTOToProfileForUpdate(userDTO, profile.get());
             if (StringUtils.isNotBlank(userDTO.getRoleName())) {
                 Role role = roleRepository.findByName(userDTO.getRoleName()).orElseThrow(() -> {
                     throw new RoleNotFoundException("Role not found");
                 }); //throw exception
                 updatedProfile.getUser().setRole(role);
+                updatedProfile.getUser().setPassword(passwordEncoder.encode(userDTO.getPassword()));
             }
             userProfileRepository.save(updatedProfile);
         } else {
             throw new UserProfileNotFoundException("Profile not found");
         }
+    }
+
+    @Override
+    public void enableUser(String username) {
+        Optional<User> user = userRepository.findByUsername(username);
+        user.ifPresent(u -> {
+            u.setIsEnabled(true);
+            userRepository.save(u);
+        });
     }
 
     @Override

@@ -16,6 +16,8 @@ public interface UserService {
 
     void updateUser(UserDTO userDTO);
 
+    void enableUser(String username);
+
     void deleteUser(Long userId);
 
     void uploadFile(Long userId, MultipartFile file);
